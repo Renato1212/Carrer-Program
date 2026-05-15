@@ -1,0 +1,773 @@
+import type { Concept } from "./types";
+import * as svg from "./svgs";
+
+// =============================================================================
+// CAREER PROGRAM — Days 1-6 (verbatim principles preserved in `definition`)
+// =============================================================================
+
+const careerProgram: Concept[] = [
+  {
+    id: "cp-day-1",
+    title: "Day 1 — Futures and Options",
+    careerProgramDay: 1,
+    sources: ["career-program"],
+    essence: "Cut losers fast, leverage conviction-driven winners, and only act with environmental awareness.",
+    definition: [
+      "Cut losers fast.",
+      "Leverage and maximize conviction-driven winners.",
+      "Don't put so much weight only on winning rate; measure performance taking overall key metrics combined.",
+      "When uncertain, reduce size or don't trade. Focus on understanding what is happening so next time the opportunity appears you are ready.",
+      "Always be aware of environment and context.",
+    ].join("\n• "),
+    visualSvg: svg.svgRiskMgmt,
+    whyItMatters:
+      "Survivorship is the precondition for compounding. Win rate is a vanity metric; expectancy × frequency × discipline is the real edge. Decisions made without context degrade into noise.",
+    howToSeeItLive:
+      "Pre-market journal logs context first, idea second. During the session, every entry pairs with a written invalidation and a sizing decision tied to current conviction.",
+    whatToDo:
+      "Reduce or skip when context is unclear. Pyramid only into trades that confirm thesis with order flow. Never average a loser. Track R-multiples, not P&L emotion.",
+    commonMistakes: [
+      "Sizing equally regardless of conviction",
+      "Chasing win rate instead of expectancy",
+      "Trading through fog because of FOMO",
+      "Failing to define environment before opening the chart",
+    ],
+    related: ["cp-day-5", "cp-day-6", "axia-risk", "axia-process"],
+    tags: ["foundation", "risk", "discipline"],
+  },
+  {
+    id: "cp-day-2",
+    title: "Day 2 — Support and Resistance",
+    careerProgramDay: 2,
+    sources: ["career-program"],
+    essence: "S/R is a positioning map; weight it by timeframe and use order flow to decide hold vs break.",
+    definition: [
+      "Support and resistance are not created equal.",
+      "Higher timeframe S/R is more relevant because more timeframe traders see it; however, larger timeframes mean larger total S/R zones.",
+      "Trading a bounce → prioritize first touches.",
+      "Trading a break → look for areas tested at least once before.",
+      "S/R helps you understand other traders' positioning and where they might be in danger.",
+      "Trendline breaks can produce quick scalp liquidation moves from position building, but don't necessarily mean trend change.",
+      "Trendlines can be useful to trail stops.",
+      "When price approaches an S/R zone, look for clues it might break or hold — primarily a change in order flow.",
+    ].join("\n• "),
+    visualSvg: svg.svgSupportResistance,
+    whyItMatters:
+      "S/R is shorthand for where positions live and where they break. The level matters less than what flow does at it. HTF levels concentrate more decisions and thus more order flow events.",
+    howToSeeItLive:
+      "Mark daily, weekly, monthly highs/lows, settlement, prior VA edges, naked POCs. As price approaches: watch tape speed, DOM stacking, footprint imbalance, CVD divergence. First-touch absorption = bounce; second/third visit with weakening defense = break.",
+    whatToDo:
+      "Fade first touches with absorption confirmation. Trade breaks of pre-tested zones with rising aggressive volume. Use trendlines for trail stops, not entries.",
+    commonMistakes: [
+      "Treating all levels equally",
+      "Fading every touch without flow confirmation",
+      "Mistaking a trendline break for trend change",
+      "Ignoring the trapped side after a sweep",
+    ],
+    related: ["cp-day-4", "axia-absorption", "axia-sweep", "dalton-naked-poc", "dalton-excess-poor"],
+    tags: ["foundation", "levels", "structure"],
+  },
+  {
+    id: "cp-day-3",
+    title: "Day 3 — Chart Patterns",
+    careerProgramDay: 3,
+    sources: ["career-program"],
+    essence: "Patterns are positioning maps — read who is trapped and where the next force lives.",
+    definition: [
+      "You don't have to trade the pattern itself — patterns are a tool to understand context and plan trades where the pattern is supporting evidence rather than the driver.",
+      "The point of reading patterns is to understand: who is trapped and will be forced out, where the other side's last defense sits, how much volume is compressed, the scope of the resulting move, confluence with other levels.",
+      "The more time and volume compressed in a clear pattern with crisp invalidation/confirmation levels, the more explosive and accelerated the move.",
+      "Use charts in conjunction with volume to find decision areas for asymmetric R:R with high probability.",
+      "Markets are fractal: a strong breakout on a 1h flag can define directional bias until the move hits a contrary inflection or fails. Use intraday structures to play a wider move.",
+      "A 1m/5m chart pattern breakout near a 15m/1h level can give better entry and stop placement on the higher-timeframe trade.",
+      "Patterns tell you where traders entered, how many attempts they made, and how the market should behave given that positioning — letting you know in real time whether the trade is working before the stop is hit (so you minimize losses, or gain conviction to hold/add).",
+      "Gaps are invisible price movements. A gap just outside a range = breakout entry opportunity at the open (max volume, sellers forced out, late buyers forced in). A gap far above a range near supply = potential fade. Futures lets you position before the open during gap formation for best location.",
+      "Gaps trap participants from the prior session and produce open urgency.",
+    ].join("\n• "),
+    visualSvg: svg.svgPattern,
+    whyItMatters:
+      "Compression with crisp invalidation produces predictable energy release. Reading the pattern lets you act before the stop hits.",
+    howToSeeItLive:
+      "Time + volume compression inside narrowing range, decreasing reactive volume on tests, crisp pivots. Pre-breakout: rising aggressive flow on the breakout side, refilled passive on the defense side.",
+    whatToDo:
+      "Trade flag breaks with order flow confirmation, not on geometry alone. Use LTF pattern within HTF level for tight stop and asymmetric target. For gaps: pre-open positioning at extremes near supply/demand zones.",
+    commonMistakes: [
+      "Trading the geometry without flow",
+      "Holding through invalidation hoping pattern still works",
+      "Confusing chop for compression",
+      "Ignoring volume signature of the breakout",
+    ],
+    related: ["cp-day-4", "cp-day-6", "axia-trapped", "dalton-balance"],
+    tags: ["foundation", "patterns", "structure"],
+  },
+  {
+    id: "cp-day-4",
+    title: "Day 4 — Volume and Delta",
+    careerProgramDay: 4,
+    sources: ["career-program"],
+    essence: "Volume is participation intensity; delta is aggression direction. Calibrate both absolute and relative.",
+    definition: [
+      "Volume can be used as both an absolute and a relative measure.",
+      "Be more active when absolute volume is high — it usually produces more directional moves.",
+      "Use the volume profile of sessions by time of day to filter best hours for directional moves vs hours when S/R is more likely to hold.",
+      "Breakout trades: prefer high absolute volume + relative volume rising vs recent activity + fast tape.",
+      "Exhaustion moves (sudden volume spike at the end of an extended move with no follow-through) can mark a move's end.",
+      "Volume decreasing can signal end of a move and start of consolidation (or reversal if volume re-expands in the other direction).",
+      "Volume gauges reaction strength — same level, decreasing reactive volume = higher break probability.",
+      "Pre-define expected price + volume behavior before entry; use deviation from expectation as a time/behavior-based stop or as a reason to add when it exceeds expectation.",
+      "Understanding aggressive vs passive order creation is another layer for reading participation, positioning, and intent.",
+    ].join("\n• "),
+    visualSvg: svg.svgExhaustion,
+    whyItMatters:
+      "Price tells you what; volume and delta tell you how much conviction backed it. Discrepancy between move and participation is your earliest warning.",
+    howToSeeItLive:
+      "Compare current bar volume to recent average; watch CVD slope vs price slope; monitor footprint imbalances stacked across consecutive bars; gauge speed of tape.",
+    whatToDo:
+      "Enter breaks when relative volume expands; fade extensions when volume spikes with no follow-through; expect consolidation when volume falls off; pre-write your expected volume pattern and use deviation as a behavior-based stop.",
+    commonMistakes: [
+      "Trading breakouts on low volume",
+      "Ignoring CVD/price divergence",
+      "Treating every spike as exhaustion",
+      "Not pre-defining expected volume signature",
+    ],
+    related: ["cp-day-2", "axia-cvd", "axia-footprint", "axia-tape", "axia-absorption"],
+    tags: ["foundation", "volume", "delta"],
+  },
+  {
+    id: "cp-day-5",
+    title: "Day 5 — Entry and Exit",
+    careerProgramDay: 5,
+    sources: ["career-program"],
+    essence: "Take only asymmetric trades. Style discipline, pre-defined invalidations, and structured targets.",
+    definition: [
+      "Organize yourself. Know what you're looking for. Don't turn a scalp into a swing or vice versa.",
+      "Every trading style has its best environment and execution method.",
+      "Every style has its burdens — knowing them prevents you from jumping styles and losing consistency.",
+      "Scaling in: ask 'If I weren't in this trade, would I enter here with conviction?' If no, don't scale.",
+      "Targets are read through three lenses: (1) locations other traders use as reference for profit-taking / counter-trades, (2) order flow behavior (momentum vs death), (3) sometimes the time it's taking to reach target. Invalidations differ for scalps vs intraday swings vs news trades.",
+      "Trading is taking the least risk for the most reward — only take trades that fit. Asymmetry is the only condition that matters. If it's not asymmetric, don't trade.",
+      "There is no 'free trade.' Act according to your analysis. The only exception: when truly uncertain and already in profit, move stop to BE or small profit while waiting.",
+    ].join("\n• "),
+    visualSvg: svg.svgEntryExit,
+    whyItMatters:
+      "Asymmetry is the only edge that compounds. Style drift destroys consistency. Targets without flow read become hopes; invalidations without flow read become donations.",
+    howToSeeItLive:
+      "Every trade card declares: style (scalp / intraday / swing), entry trigger, hard stop, target reference, time stop, behavior stop, R-multiple. R:R below 2 → rejected.",
+    whatToDo:
+      "Pre-classify the trade style before entry. Define the three invalidations (price, time, behavior). Apply the 'would I enter here without being in?' test before scaling.",
+    commonMistakes: [
+      "Style drift mid-trade (scalp → swing)",
+      "Moving stops to BE for emotional comfort",
+      "Adding to losers",
+      "Trading non-asymmetric R:R",
+    ],
+    related: ["cp-day-1", "cp-day-6", "axia-risk", "axia-process"],
+    tags: ["foundation", "execution", "rrr"],
+  },
+  {
+    id: "cp-day-6",
+    title: "Day 6 — Profile Principles",
+    careerProgramDay: 6,
+    sources: ["career-program", "dalton"],
+    essence: "Markets cycle balance ↔ imbalance fractally; trade with the side committing initiative.",
+    definition: [
+      "Markets move from balance → imbalance → balance, fractally. Balance periods produce normal-distribution bell shapes.",
+      "Two activities drive this: responsive (contains price discovery) and initiative (drives price discovery). Healthy up/down moves show absorption on pullbacks; enter only after initiative signs.",
+      "After a big move, markets tend to balance — often a balanced day follows a trend day.",
+      "Time + volume on an area = acceptance / value. Track how value shifts to anticipate the next move.",
+      "High Volume Nodes (HVNs) with normal-distribution shape = acceptance. When price leaves, it usually retests before continuing. Trade first rejections of last previous value; if price returns and spends time inside, expect it to traverse the whole node.",
+      "Low Volume Nodes (LVNs) = support/resistance edges of consolidations when in distribution phase. Trade entries at LVN edges with targets at node center or opposite side. LVNs also produce acceleration zones until the next value area when price breaks into new discovery.",
+      "Best asymmetric R:R comes from exploiting fractality: lower-timeframe execution playing a higher-timeframe trade.",
+    ].join("\n• "),
+    visualSvg: svg.svgVolumeProfile,
+    whyItMatters:
+      "Profile makes the auction visible. Knowing where acceptance lives and where it doesn't tells you where price will rest and where it will accelerate.",
+    howToSeeItLive:
+      "Build daily and composite profiles. Tag HVNs, LVNs, POC, VAH, VAL. Mark naked POCs from prior sessions. Watch whether responses to extremes contain price or fail.",
+    whatToDo:
+      "Trade LVN edges in balance for targets at node center. Trade first rejection of last value. Trade naked POC magnet. In trend day, do not fade — ride initiative.",
+    commonMistakes: [
+      "Fading initiative in a developing trend day",
+      "Treating LVN edges as solid S/R inside discovery",
+      "Ignoring composite POC magnets",
+      "Forgetting that balance follows imbalance",
+    ],
+    related: [
+      "dalton-value-area",
+      "dalton-initial-balance",
+      "dalton-day-types",
+      "dalton-balance",
+      "dalton-naked-poc",
+      "cp-day-3",
+      "cp-day-4",
+    ],
+    tags: ["foundation", "auction", "profile"],
+  },
+];
+
+// =============================================================================
+// JIM DALTON / AUCTION MARKET THEORY
+// =============================================================================
+
+const dalton: Concept[] = [
+  {
+    id: "dalton-tpo",
+    title: "Market Profile / TPO Structure",
+    sources: ["dalton"],
+    essence: "Time-Price-Opportunity letters expose where the market spent time at each price during the session.",
+    definition:
+      "A TPO chart organizes price by time. Each 30-minute period gets a letter; letters stack horizontally at the prices traded during that period. The result is a distribution showing where time and acceptance accumulated versus where price moved through quickly.",
+    visualSvg: svg.svgValueArea,
+    whyItMatters:
+      "Price tells you the outcome of the auction. TPO tells you the structure: who controlled, where they paused, where they were rejected.",
+    howToSeeItLive:
+      "Render TPO on platform (Sierra, MotiveWave, Bookmap, IRT). Read shape: bell vs elongated vs P/b. Count single prints at extremes. Identify POC drift over the day.",
+    whatToDo:
+      "Use TPO shape to classify day type developing. Trade single-print rejections; expect re-entry of poor structure.",
+    commonMistakes: ["Reading TPO without context", "Mis-defining session windows", "Ignoring TPO/Volume disagreement"],
+    related: ["dalton-value-area", "dalton-day-types", "dalton-excess-poor"],
+    tags: ["dalton", "profile"],
+  },
+  {
+    id: "dalton-value-area",
+    title: "Value Area, VAH, VAL, POC",
+    sources: ["dalton"],
+    essence: "Value = the 70% volume range; POC is the magnet, VAH/VAL the edges where responsive action ignites.",
+    definition:
+      "The Value Area contains 68–70% of session volume around the Point of Control (the most-traded price). VAH and VAL mark its top and bottom. Inside value, expect rotation; outside value, expect either acceptance (new value forming) or rejection (return to value).",
+    visualSvg: svg.svgValueArea,
+    whyItMatters:
+      "Value defines where the market and its participants agree on price. It is the most reliable contextual reference for whether action is responsive or initiative.",
+    howToSeeItLive:
+      "Plot VA from prior session(s). Watch price interact with VAH/VAL: aggressive flow that fails = responsive; sustained acceptance outside = initiative.",
+    whatToDo:
+      "Fade extremes back to POC in balance; trade acceptance outside value with targets at next reference. POC acts as magnet on revisits.",
+    commonMistakes: [
+      "Using only current-session VA without composite context",
+      "Treating VAH/VAL as hard S/R rather than decision zones",
+    ],
+    related: ["dalton-tpo", "dalton-balance", "dalton-naked-poc", "cp-day-6"],
+    tags: ["dalton", "profile", "levels"],
+  },
+  {
+    id: "dalton-naked-poc",
+    title: "Naked / Virgin POC",
+    sources: ["dalton"],
+    essence: "A POC from a prior session that has not been retested — a magnet for future price.",
+    definition:
+      "Naked POCs (also called virgin POCs) are point-of-control levels from prior sessions that price has not yet revisited. They retain magnetic pull until tested, because they mark unresolved fair-price agreement.",
+    visualSvg: svg.svgNakedPoc,
+    whyItMatters:
+      "Naked POCs catalog unfinished business in the market. They explain otherwise puzzling magnetism in price action.",
+    howToSeeItLive:
+      "Maintain a running list of naked POCs above and below current price. Sort by recency and distance. Note when price approaches one with declining counter-flow.",
+    whatToDo:
+      "Bias targets toward closest naked POC. On approach, watch for absorption or pass-through. Trade first rejection of naked POC if context aligns.",
+    commonMistakes: [
+      "Treating all naked POCs equally regardless of age",
+      "Expecting reaction without flow confirmation",
+    ],
+    related: ["dalton-value-area", "axia-absorption", "cp-day-2"],
+    tags: ["dalton", "magnets", "levels"],
+  },
+  {
+    id: "dalton-initial-balance",
+    title: "Initial Balance (IB)",
+    sources: ["dalton"],
+    essence: "The first hour's range. Width reveals who is in control; extensions reveal commitment.",
+    definition:
+      "IB is the range made in the opening 60 minutes of pit hours (or your chosen RTH window). A wide IB suggests Other-Timeframe presence and conviction; a narrow IB suggests day-timeframe locals and balance.",
+    visualSvg: svg.svgInitialBalance,
+    whyItMatters:
+      "IB sets the day's energetics. IB extensions in one direction are a strong tell for a developing trend day.",
+    howToSeeItLive:
+      "Mark IB high / IB low on the 60-min mark. Note width vs recent ADR. Track whether subsequent extensions hold or fail.",
+    whatToDo:
+      "Trade IB-extension continuation in directional context; fade IB-extension probes when responsive flow appears at the extreme.",
+    commonMistakes: ["Treating overnight range as IB", "Ignoring IB-width context", "Fading every IB extension"],
+    related: ["dalton-day-types", "dalton-open-types", "playbook-ib-extension"],
+    tags: ["dalton", "structure"],
+  },
+  {
+    id: "dalton-day-types",
+    title: "Day Types",
+    sources: ["dalton"],
+    essence: "Six archetypal sessions — read which is forming to know what game is being played.",
+    definition:
+      "Normal Day: wide IB, narrow extension. Normal Variation Day: moderate IB with one-sided extension. Trend Day: continuous one-direction auction, narrow IB. Double Distribution Trend Day: two value areas separated by single prints. Neutral Day (Center): extension both sides, close near POC. Neutral Day (Extreme): extension both sides, close at one extreme — strong directional signal for next day.",
+    visualSvg: svg.svgTrendDay,
+    whyItMatters: "Each day type demands a different style. Misclassifying the day is the most common strategic error.",
+    howToSeeItLive:
+      "Use IB width, extension behavior, value relationship, and time of structural events to classify by mid-day. Update continuously.",
+    whatToDo:
+      "Trend Day → ride initiative, do not fade. Normal Day → rotate edges. Neutral Extreme → expect follow-through next session.",
+    commonMistakes: ["Locking the classification too early", "Trading a Trend Day with mean-reversion logic"],
+    related: ["dalton-normal-day", "dalton-normal-variation", "dalton-trend-day", "dalton-double-distribution", "dalton-neutral-center", "dalton-neutral-extreme", "dalton-initial-balance"],
+    tags: ["dalton", "day-type"],
+  },
+  {
+    id: "dalton-normal-day",
+    title: "Normal Day",
+    sources: ["dalton"],
+    essence: "Wide IB; little extension; rotation inside the first-hour range.",
+    definition:
+      "A Normal Day's range is essentially set in the first hour. Day-timeframe traders rotate within IB; little Other-Timeframe commitment appears.",
+    visualSvg: svg.svgNormalDay,
+    whyItMatters: "Tells you the session is a mean-reverting environment. Asymmetry lives at the edges.",
+    howToSeeItLive: "IB width near or above recent average ADR. Extensions stall and reverse quickly.",
+    whatToDo: "Fade IB extremes with flow confirmation. Reject breakout strategies.",
+    commonMistakes: ["Expecting trend behavior when prints stay inside IB"],
+    related: ["dalton-day-types", "dalton-initial-balance", "playbook-range-fade"],
+    tags: ["dalton", "day-type"],
+  },
+  {
+    id: "dalton-normal-variation",
+    title: "Normal Variation Day",
+    sources: ["dalton"],
+    essence: "Moderate IB followed by a single-sided extension — most common day type.",
+    definition:
+      "Moderate IB with a one-sided IB extension, typically 50–100% of IB width. Other-Timeframe enters in one direction; day-timeframe rotates the rest.",
+    visualSvg: svg.svgNormalVariation,
+    whyItMatters: "The bread-and-butter session. Reward favors trading with the extension direction.",
+    howToSeeItLive: "IB extension on one side that holds; value migrates that way.",
+    whatToDo: "Trade IB-extension continuation; fade the opposite side cautiously.",
+    commonMistakes: ["Fading the extension side"],
+    related: ["dalton-day-types", "playbook-ib-extension"],
+    tags: ["dalton", "day-type"],
+  },
+  {
+    id: "dalton-trend-day",
+    title: "Trend Day",
+    sources: ["dalton"],
+    essence: "Continuous one-direction auction; narrow IB; structural opens are Open-Drive.",
+    definition:
+      "A session where Other-Timeframe takes control from the open. Narrow IB, one-sided range expansion through the session, weak pullbacks, close at or near the extreme.",
+    visualSvg: svg.svgTrendDay,
+    whyItMatters: "The day type with the largest range and the cleanest momentum. Fade once and you donate the day.",
+    howToSeeItLive: "Narrow IB, immediate IB extension, sustained CVD slope, shallow pullbacks absorbed.",
+    whatToDo: "Ride pullbacks with absorption entries. Hold a runner. Do not fade.",
+    commonMistakes: ["Counter-trend trading from emotional discomfort with the move"],
+    related: ["dalton-day-types", "dalton-open-drive", "axia-cvd", "playbook-open-drive"],
+    tags: ["dalton", "day-type"],
+  },
+  {
+    id: "dalton-double-distribution",
+    title: "Double Distribution Trend Day",
+    sources: ["dalton"],
+    essence: "Two acceptance areas separated by single prints — a stretched, two-stage trend.",
+    definition:
+      "Session forms a distribution, makes a directional move via single prints, and builds a second distribution. Reflects a context shift mid-session.",
+    visualSvg: svg.svgDoubleDist,
+    whyItMatters: "Tells you the second distribution is now the operative value — anchor trades there.",
+    howToSeeItLive: "TPO shows two clear bell shapes split by single prints. Volume profile shows two HVNs.",
+    whatToDo: "Trade the new value as the operating context. Single-print zone becomes LVN — expect acceleration through it on retests.",
+    commonMistakes: ["Anchoring to the original distribution after the shift"],
+    related: ["dalton-day-types", "cp-day-6"],
+    tags: ["dalton", "day-type"],
+  },
+  {
+    id: "dalton-neutral-center",
+    title: "Neutral Day — Center Close",
+    sources: ["dalton"],
+    essence: "Both extremes extended and rejected; close near POC = unresolved.",
+    definition:
+      "The session extends both above IB high and below IB low and closes inside the IB range, near the POC. Indecision; either side may take control next session.",
+    visualSvg: svg.svgNeutralCenter,
+    whyItMatters: "Signals the auction has not made up its mind. Use composite levels to set the next-day framework.",
+    howToSeeItLive: "Two extensions, both rejected. Close near POC.",
+    whatToDo: "Next-day plan: wait for early commitment outside prior value before sizing.",
+    commonMistakes: ["Predicting direction from a neutral-center day"],
+    related: ["dalton-day-types", "dalton-balance"],
+    tags: ["dalton", "day-type"],
+  },
+  {
+    id: "dalton-neutral-extreme",
+    title: "Neutral Day — Extreme Close",
+    sources: ["dalton"],
+    essence: "Both extremes extended; close at one — strong directional signal for next session.",
+    definition:
+      "Session extends both directions and closes at one extreme — the rejected side is the loser; the closing side is the winner. High-conviction next-day directional read.",
+    visualSvg: svg.svgNeutralExtreme,
+    whyItMatters: "One of the more reliable Dalton next-day tells.",
+    howToSeeItLive: "Two extensions, close at one extreme.",
+    whatToDo: "Bias next-session direction with the closing side. Look for continuation setups from the open.",
+    commonMistakes: ["Faded the closing side overnight"],
+    related: ["dalton-day-types", "dalton-spike-rules"],
+    tags: ["dalton", "day-type"],
+  },
+  {
+    id: "dalton-open-types",
+    title: "Open Types",
+    sources: ["dalton"],
+    essence: "The first 10–30 minutes' character — your earliest read on day type.",
+    definition:
+      "Open-Drive: instant one-direction conviction. Open-Test-Drive: brief probe in one direction, fails, drives the other way. Open-Rejection-Reverse: open extends, gets rejected, reverses through the open. Open-Auction: two-sided rotation with no commitment, either inside or outside prior range.",
+    visualSvg: svg.svgOpenDrive,
+    whyItMatters: "Each open type carries a base-rate prior on day type and a built-in playbook.",
+    howToSeeItLive: "Watch first 10–30 minutes: direction, speed, reactions, CVD slope.",
+    whatToDo: "Match observed open type to its playbook entry.",
+    commonMistakes: ["Locking in the open type before it confirms"],
+    related: ["dalton-open-drive", "dalton-open-test-drive", "dalton-open-rejection-reverse", "dalton-open-auction"],
+    tags: ["dalton", "open-type"],
+  },
+  {
+    id: "dalton-open-drive",
+    title: "Open-Drive",
+    sources: ["dalton"],
+    essence: "Auction commits from the bell — strongest open type.",
+    definition:
+      "Price moves decisively from the open with no test of the other side. Aggressive flow dominates; little to no rotation in the first minutes. Tends to precede a Trend Day.",
+    visualSvg: svg.svgOpenDrive,
+    whyItMatters: "Highest-conviction open. Pullbacks are usually shallow and absorbed.",
+    howToSeeItLive: "First 5–15 min: directional candles, fast tape, expanding CVD in the move direction.",
+    whatToDo: "Look to enter on the first pullback that holds with absorption. Do not fade.",
+    commonMistakes: ["Waiting for a deep pullback that never comes"],
+    related: ["dalton-trend-day", "playbook-open-drive"],
+    tags: ["dalton", "open-type"],
+  },
+  {
+    id: "dalton-open-test-drive",
+    title: "Open-Test-Drive",
+    sources: ["dalton"],
+    essence: "Quick probe, failure, then a drive the other way.",
+    definition:
+      "Auction tests one extreme briefly, fails to find acceptance, then reverses and drives. The failed probe traps participants who fuel the drive.",
+    visualSvg: svg.svgOpenTestDrive,
+    whyItMatters: "High R:R: trapped longs/shorts from the test become the move's fuel.",
+    howToSeeItLive: "Initial push fails at recent reference (prior settle, ONH/ONL). Aggressive flow reverses with absorption confirmation.",
+    whatToDo: "Enter on the reversal once the test fails and flow flips. Stop above/below the probe.",
+    commonMistakes: ["Entering on the initial probe rather than the reversal"],
+    related: ["dalton-open-types", "axia-trapped", "axia-sweep"],
+    tags: ["dalton", "open-type"],
+  },
+  {
+    id: "dalton-open-rejection-reverse",
+    title: "Open-Rejection-Reverse",
+    sources: ["dalton"],
+    essence: "Auction extends, gets rejected, reverses through the open.",
+    definition:
+      "Open prints, market pushes in one direction long enough to build positions, then rejects and reverses back through the opening print and beyond. Common after a strong prior session that ran out of fuel.",
+    visualSvg: svg.svgOpenRejectionReverse,
+    whyItMatters: "Tells you positioning is wrong and being unwound. Move can be large.",
+    howToSeeItLive: "Push into HTF reference fails; CVD diverges; reversal regains and breaks the opening print with strength.",
+    whatToDo: "Enter on confirmation of the reversal back through the open with rising aggressive flow.",
+    commonMistakes: ["Fading the reversal on the assumption the original push was correct"],
+    related: ["dalton-open-types", "playbook-open-rejection-reverse", "axia-trapped"],
+    tags: ["dalton", "open-type"],
+  },
+  {
+    id: "dalton-open-auction",
+    title: "Open-Auction (in / out of range)",
+    sources: ["dalton"],
+    essence: "Two-sided rotation; no commitment from either timeframe.",
+    definition:
+      "Auction rotates near the open with no clear direction. In-range: opens within prior day's range and oscillates. Out-of-range: opens outside prior range and rotates without trending — context-dependent.",
+    visualSvg: svg.svgOpenAuction,
+    whyItMatters: "Lowest-conviction open. Often precedes Normal or Neutral days.",
+    howToSeeItLive: "Open rotation persists 30+ minutes; CVD flat; tape pace average.",
+    whatToDo: "Wait for IB completion. Trade extremes responsively. Reduce size or stand aside.",
+    commonMistakes: ["Forcing a directional thesis"],
+    related: ["dalton-open-types", "dalton-normal-day"],
+    tags: ["dalton", "open-type"],
+  },
+  {
+    id: "dalton-excess-poor",
+    title: "Excess vs Poor Highs / Lows",
+    sources: ["dalton"],
+    essence: "Excess = clean rejection (single prints). Poor = unfinished structure — invites return.",
+    definition:
+      "An excess high/low forms when price spikes and immediately reverses, leaving single TPOs at the extreme. A poor (unfinished) high/low forms when price stalls flat with multiple TPOs at the extreme. Poor structure invites the market back.",
+    visualSvg: svg.svgExcessPoor,
+    whyItMatters: "Tells you whether an extreme is decisively rejected or marked for return.",
+    howToSeeItLive: "Examine the extremes of the TPO. Single prints down or up at the edge = excess. Flat block = poor.",
+    whatToDo: "Trade excess as a barrier. Bias targets toward poor highs/lows for return trades.",
+    commonMistakes: ["Treating poor highs/lows as solid resistance"],
+    related: ["dalton-tpo", "playbook-poor-return", "playbook-excess-fade"],
+    tags: ["dalton", "structure"],
+  },
+  {
+    id: "dalton-otf-vs-dt",
+    title: "Long-term (OTF) vs Short-term (Day-Timeframe) Auctions",
+    sources: ["dalton"],
+    essence: "Detect which timeframe is in control — that determines which signals matter.",
+    definition:
+      "Other-Timeframe (OTF) participants drive directional moves, hold positions, and expand value. Day-Timeframe (DT) participants rotate inside value and provide liquidity. The session's behavior tells you which is dominant.",
+    visualSvg: svg.svgResponsiveInitiative,
+    whyItMatters: "OTF in control → trend or directional day; DT in control → rotation. Wrong frame = wrong trade.",
+    howToSeeItLive: "Range expansion vs rotation; CVD slope; large prints absorbed vs faded; value migration direction.",
+    whatToDo: "Match style to the controlling timeframe. Don't trade DT setups when OTF is committed.",
+    commonMistakes: ["Mean-reverting an OTF trend"],
+    related: ["dalton-responsive-initiative", "dalton-day-types"],
+    tags: ["dalton", "framework"],
+  },
+  {
+    id: "dalton-responsive-initiative",
+    title: "Responsive vs Initiative Activity",
+    sources: ["dalton", "career-program"],
+    essence: "Responsive = contains; Initiative = drives. Enter only after initiative signs in your direction.",
+    definition:
+      "Responsive activity: buying at value lows and selling at value highs — contains price discovery. Initiative activity: buying above value or selling below value — drives price discovery into new territory.",
+    visualSvg: svg.svgResponsiveInitiative,
+    whyItMatters: "The cleanest filter for whether a level holds or breaks.",
+    howToSeeItLive: "At VAH: aggressive sellers stepping in = responsive; aggressive buyers pressing = initiative.",
+    whatToDo: "Trade responsive at edges in balance. Trade initiative on breakouts of value.",
+    commonMistakes: ["Confusing fast tape for initiative when it lacks follow-through"],
+    related: ["cp-day-6", "dalton-balance", "axia-absorption"],
+    tags: ["dalton", "framework"],
+  },
+  {
+    id: "dalton-balance",
+    title: "Balance vs Imbalance / 3-Day Balance",
+    sources: ["dalton"],
+    essence: "Markets oscillate balance → imbalance → balance. The 3-day balance is the key reference.",
+    definition:
+      "Balance: multi-day rotation inside a contained range. Imbalance: directional expansion. A 3-day balance area is a high-quality reference; breakouts target the next reference (composite POC, prior swing, naked POC).",
+    visualSvg: svg.svgBalance,
+    whyItMatters: "Knowing whether the market is in or out of balance defines the playbook.",
+    howToSeeItLive: "Three or more sessions overlapping value. Edges defended on each test. Breakout candles with expansion volume.",
+    whatToDo: "Fade edges inside balance. Trade breakouts with measured-move targets.",
+    commonMistakes: ["Trading breakouts inside balance noise"],
+    related: ["dalton-value-area", "dalton-migrating-value", "cp-day-6"],
+    tags: ["dalton", "framework"],
+  },
+  {
+    id: "dalton-migrating-value",
+    title: "Migrating Value",
+    sources: ["dalton"],
+    essence: "Day-on-day value relationship is a forward signal of next-day bias.",
+    definition:
+      "Value Higher / Value Lower (no overlap with prior): strong directional persistence. Overlap-Higher / Overlap-Lower: moderate continuation. Unchanged: pause / balance.",
+    visualSvg: svg.svgValueMigration,
+    whyItMatters: "First, simplest read on whether yesterday set a directional baton.",
+    howToSeeItLive: "Compare today's developing VA to yesterday's: where do VAH/VAL sit?",
+    whatToDo: "Bias longs after value-higher; bias shorts after value-lower; expect rotation after unchanged.",
+    commonMistakes: ["Ignoring composite context that contradicts daily migration"],
+    related: ["dalton-balance", "dalton-value-area"],
+    tags: ["dalton", "framework"],
+  },
+  {
+    id: "dalton-composite",
+    title: "Composite Profiles",
+    sources: ["dalton"],
+    essence: "Multi-day profiles surface the structures that govern bigger moves.",
+    definition:
+      "Combine multiple sessions into a composite TPO/volume profile. The composite POC, VAH, VAL, HVNs, and LVNs are the strongest references for any trade longer than a scalp.",
+    visualSvg: svg.svgComposite,
+    whyItMatters: "Daily references can be noise; composite references are signal.",
+    howToSeeItLive: "Build 3-day, 5-day, 10-day, and weekly composites. Annotate HVNs and LVNs.",
+    whatToDo: "Use composite POC as magnet target; composite LVNs as acceleration zones; composite HVNs as acceptance.",
+    commonMistakes: ["Composite drift — failing to roll forward as the regime changes"],
+    related: ["dalton-balance", "dalton-value-area", "cp-day-6"],
+    tags: ["dalton", "framework"],
+  },
+  {
+    id: "dalton-overnight-inventory",
+    title: "Overnight Inventory",
+    sources: ["dalton"],
+    essence: "Overnight positioning often gets adjusted at the open — read the inventory state, expect the reaction.",
+    definition:
+      "Long overnight inventory = ETH price held above prior close. Short = held below. Balanced = oscillated around prior close. Long+open above usually corrects lower; short+open below usually reverts higher; balanced often produces a two-sided open.",
+    visualSvg: svg.svgOvernightInventory,
+    whyItMatters: "Most useful tool for biasing the first 30–60 minutes.",
+    howToSeeItLive: "ETH chart vs prior cash close. Note where price spent its time.",
+    whatToDo: "Long inventory + gap up → fade open or wait for rotation. Short inventory + gap down → look for reversion long.",
+    commonMistakes: ["Ignoring inventory in the pre-market plan"],
+    related: ["dalton-open-types", "dalton-spike-rules"],
+    tags: ["dalton", "context"],
+  },
+  {
+    id: "dalton-spike-rules",
+    title: "Spike Rules",
+    sources: ["dalton"],
+    essence: "Late-session spikes — the next open decides acceptance vs rejection.",
+    definition:
+      "When the session ends with a sharp directional move (a spike), the next session's open relative to the spike base determines whether the spike is accepted (open inside the spike → continuation), or rejected (open back inside prior value → reversal).",
+    visualSvg: svg.svgSpike,
+    whyItMatters: "Defines the next-day game plan precisely.",
+    howToSeeItLive: "Mark the spike base. Compare next open to it.",
+    whatToDo: "Accepted spike: continue with bias. Rejected spike: trade the rejection back into prior value.",
+    commonMistakes: ["Calling the spike accepted before the open prints"],
+    related: ["dalton-overnight-inventory", "dalton-neutral-extreme"],
+    tags: ["dalton", "context"],
+  },
+];
+
+// =============================================================================
+// AXIA FUTURES — EXECUTION FRAMEWORKS
+// =============================================================================
+
+const axia: Concept[] = [
+  {
+    id: "axia-tape",
+    title: "Tape Reading — Speed, Size, Persistence",
+    sources: ["axia"],
+    essence: "Read execution character live: how fast, how big, how one-sided.",
+    definition:
+      "Tape reading interprets the time-and-sales feed in real time. Speed = print rate. Size = trade size distribution. Persistence = whether aggression remains one-sided or alternates.",
+    visualSvg: svg.svgTape,
+    whyItMatters: "The tape is the rawest order-flow signal. Speed and persistence often lead price.",
+    howToSeeItLive: "Watch for pace acceleration, repeated lift-of-offer / hit-of-bid, large prints clustered.",
+    whatToDo: "Enter on tape that accelerates in your direction at a known level; exit when tape decays against the position.",
+    commonMistakes: ["Confusing busy tape with directional tape"],
+    related: ["axia-dom", "axia-footprint", "cp-day-4"],
+    tags: ["axia", "order-flow"],
+  },
+  {
+    id: "axia-dom",
+    title: "DOM — Stacking, Pulls, Refills",
+    sources: ["axia"],
+    essence: "The order book shows intent — and intent is unreliable until tested.",
+    definition:
+      "DOM shows resting limit orders. Stacking = building large size at a price. Pulls = sudden removal. Refills = displayed size repeatedly replenishing as it is hit.",
+    visualSvg: svg.svgDom,
+    whyItMatters: "Refills at a level = real defense. Stacking that pulls on approach = spoof or low-conviction.",
+    howToSeeItLive: "Combine DOM watch with footprint and tape. Match displayed vs transacted size.",
+    whatToDo: "Trust refills, discount stacking without refill history, and treat sudden pulls as warning.",
+    commonMistakes: ["Trading off displayed size alone"],
+    related: ["axia-tape", "axia-iceberg", "axia-spoof"],
+    tags: ["axia", "order-flow"],
+  },
+  {
+    id: "axia-footprint",
+    title: "Footprint / Cluster Charts",
+    sources: ["axia"],
+    essence: "Per-price bid/ask volume per bar — shows where aggression met liquidity.",
+    definition:
+      "A footprint bar splits each price into buy-side (lift-of-offer) and sell-side (hit-of-bid) volumes. Imbalances of 3:1 or 4:1 reveal the side committing aggression at each level.",
+    visualSvg: svg.svgFootprint,
+    whyItMatters: "Converts the auction's micro-decisions into structure you can trade.",
+    howToSeeItLive: "Stacked imbalances at a swing high/low signal exhaustion; clustered imbalances at trend pullbacks signal absorption.",
+    whatToDo: "Use stacked imbalances at extremes as reversal triggers; pullback imbalances as continuation entries.",
+    commonMistakes: ["Reading footprint without context level"],
+    related: ["axia-absorption", "axia-cvd", "cp-day-4"],
+    tags: ["axia", "order-flow"],
+  },
+  {
+    id: "axia-cvd",
+    title: "Cumulative Volume Delta (CVD)",
+    sources: ["axia"],
+    essence: "Running tally of aggressive buying vs selling. Slope + divergence tell the story.",
+    definition:
+      "CVD = Σ (aggressive buys − aggressive sells). The line's slope confirms trend; its divergence from price warns of weakening conviction.",
+    visualSvg: svg.svgCvdDivergence,
+    whyItMatters: "Single best confirmation/divergence tool for intraday context.",
+    howToSeeItLive: "Plot CVD over price. Watch for new price extremes without new CVD extremes.",
+    whatToDo: "Trade in the direction of CVD slope; fade price moves that lack CVD support.",
+    commonMistakes: ["Treating CVD as standalone signal", "Confusing session boundaries that reset CVD"],
+    related: ["axia-footprint", "axia-tape", "cp-day-4"],
+    tags: ["axia", "order-flow"],
+  },
+  {
+    id: "axia-absorption",
+    title: "Absorption",
+    sources: ["axia"],
+    essence: "Passive size eats aggressive flow without giving ground — the single most important signal at S/R.",
+    definition:
+      "Absorption is the moment passive size eats aggressive flow without giving ground. At a tested level with rising aggressive volume and stalled price, you are watching size defend value. Trade in the direction of the absorption, not against it. If the level breaks anyway, the trapped aggressors fuel the move that follows.",
+    visualSvg: svg.svgAbsorption,
+    whyItMatters: "Absorption tells you who is winning the battle for a price level in real time.",
+    howToSeeItLive: "Aggressive volume rising into the level, price stalling, footprint imbalances printing but price not moving, refills on DOM.",
+    whatToDo: "Take the side of the absorption with stop on the other side of the level. If absorption fails, flip and trade the trapped move.",
+    commonMistakes: ["Calling absorption too early before price has actually stalled", "Ignoring absorption fails"],
+    related: ["axia-footprint", "axia-trapped", "axia-iceberg", "cp-day-2", "cp-day-4"],
+    tags: ["axia", "order-flow", "core"],
+  },
+  {
+    id: "axia-iceberg",
+    title: "Hidden / Iceberg Liquidity",
+    sources: ["axia"],
+    essence: "Displayed size is a fraction of resting size — the rest reveals only by execution.",
+    definition:
+      "An iceberg order shows small displayed size but refills repeatedly as it gets hit. The transacted size at the price far exceeds what the DOM showed.",
+    visualSvg: svg.svgIceberg,
+    whyItMatters: "Icebergs are the institutional fingerprint at key levels.",
+    howToSeeItLive: "Displayed offers/bids of, say, 20 lots, but transacted volume of hundreds at that price across the same minute.",
+    whatToDo: "Trade with the iceberg side; respect its level until it fails.",
+    commonMistakes: ["Reading iceberg from displayed size only"],
+    related: ["axia-absorption", "axia-dom"],
+    tags: ["axia", "order-flow"],
+  },
+  {
+    id: "axia-sweep",
+    title: "Stop Run / Liquidity Sweep",
+    sources: ["axia"],
+    essence: "A fast spike beyond a level to harvest resting stops — read the reversal that follows.",
+    definition:
+      "Aggressive participants push price beyond an obvious level (prior high, prior low, range edge) to trigger resting stop orders, then reverse with the now-trapped participants.",
+    visualSvg: svg.svgStopRun,
+    whyItMatters: "One of the highest-R:R recurring events in futures.",
+    howToSeeItLive: "Sharp wick beyond a known level, immediate aggressive prints in the opposite direction, CVD reversal, footprint imbalance flip.",
+    whatToDo: "Enter on the reversal after the sweep with stop above/below the wick.",
+    commonMistakes: ["Entering at the wick before the reversal confirms"],
+    related: ["axia-trapped", "playbook-failed-break"],
+    tags: ["axia", "order-flow", "setup"],
+  },
+  {
+    id: "axia-trapped",
+    title: "Trapped Traders",
+    sources: ["axia"],
+    essence: "Locate the wrong-side participants; their forced exit fuels the next move.",
+    definition:
+      "Trapped traders are participants holding losing positions whose exit becomes mechanically forced as price moves against them. Map where they entered (failed breakouts, swept stops, late chases) to know where their unwind fuels the next leg.",
+    visualSvg: svg.svgTrapped,
+    whyItMatters: "Trapped flows are the fuel that creates explosive moves.",
+    howToSeeItLive: "Late aggressive prints into a level that immediately reverse; failed breakouts; sweeps without follow-through.",
+    whatToDo: "Trade with the unwind. The further price moves against trapped traders, the more mechanical the flow.",
+    commonMistakes: ["Assuming the trapped side just gives up — they need price moving against them"],
+    related: ["axia-sweep", "dalton-open-test-drive", "dalton-open-rejection-reverse"],
+    tags: ["axia", "framework", "core"],
+  },
+  {
+    id: "axia-spoof",
+    title: "Spoofing Awareness",
+    sources: ["axia"],
+    essence: "Large displayed size that never fills — discount the DOM in that direction.",
+    definition:
+      "Spoofing places large displayed orders not intended to execute, aimed at influencing price perception. Recognizing it prevents you from being faded by it.",
+    visualSvg: svg.svgSpoof,
+    whyItMatters: "Spoof recognition is what separates DOM literacy from DOM superstition.",
+    howToSeeItLive: "Massive size appears, price approaches, size vanishes; opposite-side aggression continues.",
+    whatToDo: "Ignore the spoofed level. Use it as a counter-signal — the move is often in the spoof's opposite direction.",
+    commonMistakes: ["Treating spoof size as real defense"],
+    related: ["axia-dom"],
+    tags: ["axia", "order-flow"],
+  },
+  {
+    id: "axia-risk",
+    title: "Risk Management Protocol",
+    sources: ["axia", "career-program"],
+    essence: "Daily loss limit, max trades, R-based sizing, drawdown discipline, tilt detection.",
+    definition:
+      "A non-negotiable system: daily loss limit (e.g., 2R/3R), max trades per day, R-based sizing (% of account per trade), weekly drawdown trip-wires, and tilt-detection rules that force a step-away.",
+    visualSvg: svg.svgRiskMgmt,
+    whyItMatters: "Edge only compounds when you stay in the game. Loss-limits prevent regime-changing days.",
+    howToSeeItLive: "Daily P&L tracker with hard stops. Trade journal with R-multiples. Tilt rule (e.g., 2 consecutive losses → 20-minute step away).",
+    whatToDo: "Hard-stop at the daily loss limit. Always size by R, not by feel. Step away on tilt indicators.",
+    commonMistakes: ["Skipping the daily limit 'just this once'", "Sizing by recent P&L emotion"],
+    related: ["cp-day-1", "cp-day-5", "axia-process"],
+    tags: ["axia", "risk", "core"],
+  },
+  {
+    id: "axia-process",
+    title: "Process Discipline",
+    sources: ["axia", "career-program"],
+    essence: "Pre-market routine, mental capital management, journaling cadence — the spine of consistency.",
+    definition:
+      "A repeatable daily process: pre-market context build, levels and scenarios, intra-session focus rules, post-session debrief, and journal entries linked back to concepts. Mental capital is finite; protect it.",
+    visualSvg: svg.svgProcess,
+    whyItMatters: "Skill compounds only when wrapped in repeatable process.",
+    howToSeeItLive: "Daily Planning Workbench filled before bell; Debrief Journal filled at close; concept review weekly.",
+    whatToDo: "Run the loop every session. Skip the loop = skip the session.",
+    commonMistakes: ["Skipping post-session debrief", "Trading without the morning plan filled out"],
+    related: ["axia-risk", "cp-day-1", "cp-day-5"],
+    tags: ["axia", "process", "core"],
+  },
+];
+
+export const concepts: Concept[] = [...careerProgram, ...dalton, ...axia];
+
+export const conceptById = (id: string): Concept | undefined => concepts.find((c) => c.id === id);
+
+export function conceptsBySource(source: "career-program" | "dalton" | "axia"): Concept[] {
+  return concepts.filter((c) => c.sources.includes(source));
+}

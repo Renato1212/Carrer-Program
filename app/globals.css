@@ -1,0 +1,80 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+  html,
+  body {
+    @apply bg-bg text-ink antialiased;
+    font-feature-settings: "ss01", "cv01", "cv11";
+  }
+  body {
+    background-image:
+      radial-gradient(1100px 600px at 80% -10%, rgba(122, 162, 255, 0.05), transparent 60%),
+      radial-gradient(900px 500px at -10% 30%, rgba(224, 164, 88, 0.035), transparent 60%);
+    background-attachment: fixed;
+  }
+  ::selection {
+    background: rgba(122, 162, 255, 0.25);
+  }
+}
+
+@layer components {
+  .card {
+    @apply rounded-lg bg-bg-elevated border border-line shadow-card;
+  }
+  .card-hover {
+    @apply transition-colors hover:bg-bg-surface hover:border-line-strong;
+  }
+  .chip {
+    @apply inline-flex items-center gap-1 rounded border border-line bg-bg-surface px-2 py-0.5 text-[11px] font-medium tracking-widish text-ink-muted uppercase;
+  }
+  .chip-career {
+    @apply border-source-career/30 text-source-career bg-source-career/5;
+  }
+  .chip-dalton {
+    @apply border-source-dalton/30 text-source-dalton bg-source-dalton/5;
+  }
+  .chip-axia {
+    @apply border-source-axia/30 text-source-axia bg-source-axia/5;
+  }
+  .kbd {
+    @apply inline-flex items-center justify-center rounded border border-line bg-bg-surface px-1.5 py-0.5 text-[10px] font-mono text-ink-muted;
+  }
+  .h-section {
+    @apply text-[11px] font-medium tracking-widish text-ink-subtle uppercase;
+  }
+  .terminal-grid {
+    background-image: linear-gradient(rgba(255, 255, 255, 0.018) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.018) 1px, transparent 1px);
+    background-size: 48px 48px;
+  }
+  .btn {
+    @apply inline-flex items-center gap-2 rounded-md border border-line bg-bg-surface px-3 py-1.5 text-sm text-ink hover:bg-bg-hover hover:border-line-strong transition-colors;
+  }
+  .btn-primary {
+    @apply border-accent/40 bg-accent/10 text-accent hover:bg-accent/15 hover:border-accent/60;
+  }
+  .input {
+    @apply w-full rounded-md border border-line bg-bg-surface px-3 py-2 text-sm text-ink placeholder:text-ink-subtle focus:outline-none focus:border-accent/60 focus:bg-bg-hover;
+  }
+  .select {
+    @apply input appearance-none pr-8;
+  }
+  .divider {
+    @apply h-px w-full bg-line;
+  }
+}
+
+@media print {
+  body {
+    background: white !important;
+    color: black !important;
+  }
+  .no-print {
+    display: none !important;
+  }
+}
