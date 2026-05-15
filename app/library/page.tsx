@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useMemo, useState } from "react";
+import { Suspense, useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { concepts } from "@/data/concepts";
 import { ConceptCard } from "@/components/concept-card";
@@ -16,6 +16,14 @@ const FILTERS: { key: Filter; label: string }[] = [
 ];
 
 export default function LibraryPage() {
+  return (
+    <Suspense fallback={<div className="text-ink-subtle text-sm">Loading library…</div>}>
+      <LibraryInner />
+    </Suspense>
+  );
+}
+
+function LibraryInner() {
   const sp = useSearchParams();
   const focused = sp.get("c");
   const [filter, setFilter] = useState<Filter>("all");
@@ -52,7 +60,7 @@ export default function LibraryPage() {
       <header className="flex items-end justify-between flex-wrap gap-3">
         <div>
           <div className="font-mono text-[11px] tracking-widish text-ink-subtle uppercase">Foundation Library</div>
-          <h1 className="text-2xl font-semibold tracking-tightish mt-1">Concepts as operating instructions</h1>
+          <h1 className="text-xl sm:text-2xl font-semibold tracking-tightish mt-1">Concepts as operating instructions</h1>
           <p className="text-ink-muted text-sm mt-1 max-w-2xl">
             Career Program is the spine. Dalton and Axia thread through every card. Every concept answers four
             questions: what is it, why does it matter, how do I see it live, what do I do?

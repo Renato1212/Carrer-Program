@@ -1,5 +1,5 @@
 "use client";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useStore } from "@/lib/store";
 import { synthesize } from "@/lib/context-engine";
 import { playbooks } from "@/data/playbooks";
@@ -30,7 +30,16 @@ export default function BuilderPage() {
 
   const [bias, setBias] = useState<TradeIdea["bias"]>("long");
   const [level, setLevel] = useState("");
-  const [setupId, setSetupId] = useState(dominant?.playbookRefs?.[0] ?? playbooks[0].id);
+  const [setupId, setSetupId] = useState(playbooks[0].id);
+  const setupTouched = useRef(false);
+
+  // Auto-select the context-suggested setup once context hydrates,
+  // until the user makes an explicit choice.
+  useEffect(() => {
+    if (setupTouched.current) return;
+    const suggested = dominant?.playbookRefs?.[0];
+    if (suggested && suggested !== setupId) setSetupId(suggested);
+  }, [dominant, setupId]);
   const [conf, setConf] = useState<string[]>([]);
   const [entry, setEntry] = useState("");
   const [stop, setStop] = useState("");
@@ -85,7 +94,7 @@ export default function BuilderPage() {
     <div className="space-y-6 animate-fade-in">
       <header>
         <div className="font-mono text-[11px] tracking-widish text-ink-subtle uppercase">Trade Idea Builder</div>
-        <h1 className="text-2xl font-semibold tracking-tightish mt-1">Asymmetry is the only condition that matters.</h1>
+        <h1 className="text-xl sm:text-2xl font-semibold tracking-tightish mt-1">Asymmetry is the only condition that matters.</h1>
         <p className="text-ink-muted text-sm mt-1 max-w-2xl">
           Funnel from context → bias → level → setup → confirmations → R:R. Trades below 2R are rejected unless flagged exception.
         </p>
@@ -125,7 +134,10 @@ export default function BuilderPage() {
             <SelectField
               label="4 · Setup"
               value={setupId}
-              onChange={(v) => setSetupId(v || playbooks[0].id)}
+              onChange={(v) => {
+                setupTouched.current = true;
+                setSetupId(v || playbooks[0].id);
+              }}
               options={playbooks.map((p) => ({ value: p.id, label: p.name }))}
             />
             <div>

@@ -12,7 +12,6 @@ const today = () => new Date().toISOString().slice(0, 10);
 export default function JournalPage() {
   const entries = useStore((s) => s.journal);
   const add = useStore((s) => s.addJournal);
-  const update = useStore((s) => s.updateJournal);
   const remove = useStore((s) => s.removeJournal);
 
   const [draft, setDraft] = useState<JournalEntry>({
@@ -54,7 +53,7 @@ export default function JournalPage() {
     <div className="space-y-6 animate-fade-in">
       <header>
         <div className="font-mono text-[11px] tracking-widish text-ink-subtle uppercase">Debrief Journal</div>
-        <h1 className="text-2xl font-semibold tracking-tightish mt-1">Review against the plan. Store lessons against the concept.</h1>
+        <h1 className="text-xl sm:text-2xl font-semibold tracking-tightish mt-1">Review against the plan. Store lessons against the concept.</h1>
         <p className="text-ink-muted text-sm mt-1 max-w-2xl">
           Lessons stored against the relevant concept accumulate over time — each foundation card builds its own private experience archive.
         </p>
@@ -106,9 +105,9 @@ export default function JournalPage() {
             <div className="h-section mb-2">Lessons (linked to a concept)</div>
             <div className="space-y-2">
               {draft.lessons.map((l, i) => (
-                <div key={i} className="grid grid-cols-12 gap-2 items-start">
+                <div key={i} className="grid grid-cols-1 sm:grid-cols-12 gap-2 items-start">
                   <select
-                    className="select col-span-5"
+                    className="select sm:col-span-5"
                     value={l.conceptId}
                     onChange={(e) => {
                       const next = [...draft.lessons];
@@ -122,7 +121,7 @@ export default function JournalPage() {
                     ))}
                   </select>
                   <input
-                    className="input col-span-6"
+                    className="input sm:col-span-6"
                     placeholder="lesson…"
                     value={l.lesson}
                     onChange={(e) => {
@@ -132,8 +131,9 @@ export default function JournalPage() {
                     }}
                   />
                   <button
+                    aria-label="Remove lesson"
                     onClick={() => setDraft({ ...draft, lessons: draft.lessons.filter((_, j) => j !== i) })}
-                    className="text-ink-subtle hover:text-short col-span-1 justify-self-center mt-2"
+                    className="text-ink-subtle hover:text-short sm:col-span-1 justify-self-start sm:justify-self-center sm:mt-2"
                   >
                     <Trash2 className="w-3.5 h-3.5" />
                   </button>

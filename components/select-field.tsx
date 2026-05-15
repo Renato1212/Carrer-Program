@@ -18,7 +18,7 @@ export function SelectField<T extends string>({
 }) {
   return (
     <label className="block">
-      <div className="h-section mb-1.5">{label}</div>
+      {label && <div className="h-section mb-1.5">{label}</div>}
       <div className="relative">
         <select
           value={value}

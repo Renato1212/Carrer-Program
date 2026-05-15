@@ -19,7 +19,7 @@ export default function ContextPage() {
       <header className="flex items-end justify-between flex-wrap gap-3">
         <div>
           <div className="font-mono text-[11px] tracking-widish text-ink-subtle uppercase">Context Locator</div>
-          <h1 className="text-2xl font-semibold tracking-tightish mt-1">Where are we right now?</h1>
+          <h1 className="text-xl sm:text-2xl font-semibold tracking-tightish mt-1">Where are we right now?</h1>
           <p className="text-ink-muted text-sm mt-1 max-w-2xl">
             Structured inputs only. The synthesized read tells you which timeframe is in control, the 2–3 most probable scenarios, what to look for and what to avoid.
           </p>

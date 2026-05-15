@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { playbooks } from "@/data/playbooks";
 import { conceptById } from "@/data/concepts";
@@ -8,6 +8,14 @@ import { cn } from "@/lib/cn";
 import { motion } from "framer-motion";
 
 export default function PlaybookPage() {
+  return (
+    <Suspense fallback={<div className="text-ink-subtle text-sm">Loading playbook…</div>}>
+      <PlaybookInner />
+    </Suspense>
+  );
+}
+
+function PlaybookInner() {
   const sp = useSearchParams();
   const focus = sp.get("p");
   const [active, setActive] = useState<string>(focus ?? playbooks[0].id);
@@ -22,7 +30,7 @@ export default function PlaybookPage() {
     <div className="space-y-6 animate-fade-in">
       <header>
         <div className="font-mono text-[11px] tracking-widish text-ink-subtle uppercase">Execution Playbook</div>
-        <h1 className="text-2xl font-semibold tracking-tightish mt-1">Named setups. Required context. Hard invalidations.</h1>
+        <h1 className="text-xl sm:text-2xl font-semibold tracking-tightish mt-1">Named setups. Required context. Hard invalidations.</h1>
         <p className="text-ink-muted text-sm mt-1 max-w-2xl">
           No setup ships without explicit required context and what would kill the trade before the stop. Hunt only what fits today.
         </p>

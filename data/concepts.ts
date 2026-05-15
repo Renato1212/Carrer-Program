@@ -285,7 +285,8 @@ const dalton: Concept[] = [
     whatToDo:
       "Trade IB-extension continuation in directional context; fade IB-extension probes when responsive flow appears at the extreme.",
     commonMistakes: ["Treating overnight range as IB", "Ignoring IB-width context", "Fading every IB extension"],
-    related: ["dalton-day-types", "dalton-open-types", "playbook-ib-extension"],
+    related: ["dalton-day-types", "dalton-open-types"],
+    relatedPlaybooks: ["playbook-ib-extension"],
     tags: ["dalton", "structure"],
   },
   {
@@ -317,7 +318,8 @@ const dalton: Concept[] = [
     howToSeeItLive: "IB width near or above recent average ADR. Extensions stall and reverse quickly.",
     whatToDo: "Fade IB extremes with flow confirmation. Reject breakout strategies.",
     commonMistakes: ["Expecting trend behavior when prints stay inside IB"],
-    related: ["dalton-day-types", "dalton-initial-balance", "playbook-range-fade"],
+    related: ["dalton-day-types", "dalton-initial-balance"],
+    relatedPlaybooks: ["playbook-range-fade"],
     tags: ["dalton", "day-type"],
   },
   {
@@ -332,7 +334,8 @@ const dalton: Concept[] = [
     howToSeeItLive: "IB extension on one side that holds; value migrates that way.",
     whatToDo: "Trade IB-extension continuation; fade the opposite side cautiously.",
     commonMistakes: ["Fading the extension side"],
-    related: ["dalton-day-types", "playbook-ib-extension"],
+    related: ["dalton-day-types"],
+    relatedPlaybooks: ["playbook-ib-extension"],
     tags: ["dalton", "day-type"],
   },
   {
@@ -347,7 +350,8 @@ const dalton: Concept[] = [
     howToSeeItLive: "Narrow IB, immediate IB extension, sustained CVD slope, shallow pullbacks absorbed.",
     whatToDo: "Ride pullbacks with absorption entries. Hold a runner. Do not fade.",
     commonMistakes: ["Counter-trend trading from emotional discomfort with the move"],
-    related: ["dalton-day-types", "dalton-open-drive", "axia-cvd", "playbook-open-drive"],
+    related: ["dalton-day-types", "dalton-open-drive", "axia-cvd"],
+    relatedPlaybooks: ["playbook-open-drive"],
     tags: ["dalton", "day-type"],
   },
   {
@@ -422,7 +426,8 @@ const dalton: Concept[] = [
     howToSeeItLive: "First 5–15 min: directional candles, fast tape, expanding CVD in the move direction.",
     whatToDo: "Look to enter on the first pullback that holds with absorption. Do not fade.",
     commonMistakes: ["Waiting for a deep pullback that never comes"],
-    related: ["dalton-trend-day", "playbook-open-drive"],
+    related: ["dalton-trend-day"],
+    relatedPlaybooks: ["playbook-open-drive"],
     tags: ["dalton", "open-type"],
   },
   {
@@ -452,7 +457,8 @@ const dalton: Concept[] = [
     howToSeeItLive: "Push into HTF reference fails; CVD diverges; reversal regains and breaks the opening print with strength.",
     whatToDo: "Enter on confirmation of the reversal back through the open with rising aggressive flow.",
     commonMistakes: ["Fading the reversal on the assumption the original push was correct"],
-    related: ["dalton-open-types", "playbook-open-rejection-reverse", "axia-trapped"],
+    related: ["dalton-open-types", "axia-trapped"],
+    relatedPlaybooks: ["playbook-open-rejection-reverse"],
     tags: ["dalton", "open-type"],
   },
   {
@@ -482,7 +488,8 @@ const dalton: Concept[] = [
     howToSeeItLive: "Examine the extremes of the TPO. Single prints down or up at the edge = excess. Flat block = poor.",
     whatToDo: "Trade excess as a barrier. Bias targets toward poor highs/lows for return trades.",
     commonMistakes: ["Treating poor highs/lows as solid resistance"],
-    related: ["dalton-tpo", "playbook-poor-return", "playbook-excess-fade"],
+    related: ["dalton-tpo"],
+    relatedPlaybooks: ["playbook-poor-return", "playbook-excess-fade"],
     tags: ["dalton", "structure"],
   },
   {
@@ -699,7 +706,8 @@ const axia: Concept[] = [
     howToSeeItLive: "Sharp wick beyond a known level, immediate aggressive prints in the opposite direction, CVD reversal, footprint imbalance flip.",
     whatToDo: "Enter on the reversal after the sweep with stop above/below the wick.",
     commonMistakes: ["Entering at the wick before the reversal confirms"],
-    related: ["axia-trapped", "playbook-failed-break"],
+    related: ["axia-trapped"],
+    relatedPlaybooks: ["playbook-failed-break"],
     tags: ["axia", "order-flow", "setup"],
   },
   {

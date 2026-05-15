@@ -11,6 +11,7 @@ export type Concept = {
   whatToDo: string;
   commonMistakes: string[];
   related: string[];
+  relatedPlaybooks?: string[];
   sources: Source[];
   careerProgramDay?: 1 | 2 | 3 | 4 | 5 | 6;
   tags: string[];

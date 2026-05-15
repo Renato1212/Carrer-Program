@@ -30,7 +30,7 @@ export function CommandPalette({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-start justify-center pt-[12vh] bg-black/60 backdrop-blur-sm" onClick={() => onOpenChange(false)}>
+    <div className="fixed inset-0 z-[60] flex items-start justify-center pt-[14vh] px-4 bg-black/60 backdrop-blur-sm" onClick={() => onOpenChange(false)}>
       <Command
         className="w-full max-w-xl rounded-lg border border-line bg-bg-elevated shadow-glow overflow-hidden"
         onClick={(e) => e.stopPropagation()}

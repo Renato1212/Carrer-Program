@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { Shell } from "@/components/shell";
 
@@ -6,6 +6,12 @@ export const metadata: Metadata = {
   title: "Operator — Auction & Order-Flow Decision Tool",
   description:
     "Institutional-grade interactive learning and decision companion for futures traders. Career Program × Dalton × Axia.",
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  themeColor: "#0a0c10",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

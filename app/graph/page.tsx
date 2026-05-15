@@ -9,7 +9,6 @@ type Node = {
   id: string;
   title: string;
   source: Concept["sources"][number];
-  group: string;
   radius: number;
   x?: number;
   y?: number;
@@ -25,24 +24,29 @@ const COLORS: Record<string, string> = {
 };
 
 export default function GraphPage() {
+  const wrapRef = useRef<HTMLDivElement | null>(null);
   const ref = useRef<SVGSVGElement | null>(null);
   const [selected, setSelected] = useState<string | null>(null);
+  const [size, setSize] = useState({ w: 0, h: 560 });
 
   const { nodes, links } = useMemo(() => {
-    const nodes: Node[] = concepts.map((c) => ({
-      id: c.id,
-      title: c.title,
-      source: c.sources[0],
-      group: c.sources[0],
-      radius: 6 + Math.min(8, c.related.length * 0.8),
-    }));
+    const ids = new Set(concepts.map((c) => c.id));
+    const nodes: Node[] = concepts.map((c) => {
+      const degree = c.related.filter((r) => ids.has(r)).length;
+      return {
+        id: c.id,
+        title: c.title,
+        source: c.sources[0],
+        radius: 6 + Math.min(8, degree * 0.9),
+      };
+    });
     const edges = new Set<string>();
     const links: Link[] = [];
     concepts.forEach((c) => {
       c.related.forEach((r) => {
+        if (!ids.has(r)) return;
         const k = [c.id, r].sort().join("|");
         if (edges.has(k)) return;
-        if (!concepts.some((x) => x.id === r)) return;
         edges.add(k);
         links.push({ source: c.id, target: r });
       });
@@ -50,23 +54,39 @@ export default function GraphPage() {
     return { nodes, links };
   }, []);
 
+  // Track container size responsively.
   useEffect(() => {
-    const svg = d3.select(ref.current);
-    if (!svg.node()) return;
-    svg.selectAll("*").remove();
+    const el = wrapRef.current;
+    if (!el) return;
+    const measure = () => {
+      const w = el.clientWidth;
+      const h = Math.max(420, Math.min(680, Math.round(window.innerHeight * 0.7)));
+      setSize((s) => (s.w === w && s.h === h ? s : { w, h }));
+    };
+    measure();
+    const ro = new ResizeObserver(measure);
+    ro.observe(el);
+    window.addEventListener("resize", measure);
+    return () => {
+      ro.disconnect();
+      window.removeEventListener("resize", measure);
+    };
+  }, []);
 
-    const w = (ref.current!.parentElement as HTMLElement).clientWidth;
-    const h = 620;
+  useEffect(() => {
+    if (!ref.current || size.w <= 0) return;
+    const { w, h } = size;
+    const svg = d3.select(ref.current);
+    svg.selectAll("*").remove();
     svg.attr("viewBox", `0 0 ${w} ${h}`).attr("width", w).attr("height", h);
 
     const g = svg.append("g");
 
-    svg.call(
-      d3
-        .zoom<SVGSVGElement, unknown>()
-        .scaleExtent([0.4, 3])
-        .on("zoom", (e) => g.attr("transform", e.transform.toString())) as any,
-    );
+    const zoom = d3
+      .zoom<SVGSVGElement, unknown>()
+      .scaleExtent([0.35, 3])
+      .on("zoom", (e) => g.attr("transform", e.transform.toString()));
+    svg.call(zoom as any);
 
     const simulation = d3
       .forceSimulation<Node>(nodes)
@@ -75,17 +95,17 @@ export default function GraphPage() {
         d3
           .forceLink<Node, Link>(links)
           .id((d) => d.id)
-          .distance(80)
-          .strength(0.45),
+          .distance(78)
+          .strength(0.42),
       )
-      .force("charge", d3.forceManyBody().strength(-220))
+      .force("charge", d3.forceManyBody().strength(-230))
       .force("center", d3.forceCenter(w / 2, h / 2))
-      .force("collide", d3.forceCollide<Node>().radius((d) => d.radius + 6));
+      .force("collide", d3.forceCollide<Node>().radius((d) => d.radius + 7));
 
     const link = g
       .append("g")
       .attr("stroke", "#2a3142")
-      .attr("stroke-opacity", 0.5)
+      .attr("stroke-opacity", 0.45)
       .selectAll("line")
       .data(links)
       .join("line")
@@ -97,7 +117,7 @@ export default function GraphPage() {
       .data(nodes)
       .join("g")
       .style("cursor", "pointer")
-      .on("click", (_, d) => setSelected(d.id));
+      .on("click", (_, d) => setSelected((cur) => (cur === d.id ? null : d.id)));
 
     node
       .append("circle")
@@ -114,7 +134,8 @@ export default function GraphPage() {
       .attr("y", 4)
       .attr("fill", "#9aa3b2")
       .attr("font-size", 10)
-      .attr("font-family", "JetBrains Mono, monospace");
+      .attr("font-family", "JetBrains Mono, monospace")
+      .attr("pointer-events", "none");
 
     node.call(
       d3
@@ -128,10 +149,9 @@ export default function GraphPage() {
           d.fx = event.x;
           d.fy = event.y;
         })
-        .on("end", (event, d) => {
+        .on("end", (event) => {
           if (!event.active) simulation.alphaTarget(0);
-          d.fx = null;
-          d.fy = null;
+          // Keep the node pinned where the user dropped it.
         }) as any,
     );
 
@@ -147,9 +167,9 @@ export default function GraphPage() {
     return () => {
       simulation.stop();
     };
-  }, [nodes, links]);
+  }, [nodes, links, size]);
 
-  // Highlight selected
+  // Highlight selected node + neighbours.
   useEffect(() => {
     if (!ref.current) return;
     const svg = d3.select(ref.current);
@@ -164,32 +184,20 @@ export default function GraphPage() {
       });
     }
     svg
-      .selectAll("circle")
-      .attr("fill-opacity", function (d: any) {
-        if (!selected) return 0.85;
-        return connected.has(d.id) ? 1 : 0.15;
-      })
-      .attr("stroke", function (d: any) {
-        return selected && d.id === selected ? "#7aa2ff" : "#0a0c10";
-      })
-      .attr("stroke-width", function (d: any) {
-        return selected && d.id === selected ? 2.5 : 1.5;
-      });
+      .selectAll<SVGCircleElement, Node>("circle")
+      .attr("fill-opacity", (d) => (!selected ? 0.85 : connected.has(d.id) ? 1 : 0.12))
+      .attr("stroke", (d) => (selected && d.id === selected ? "#7aa2ff" : "#0a0c10"))
+      .attr("stroke-width", (d) => (selected && d.id === selected ? 2.5 : 1.5));
     svg
-      .selectAll("text")
-      .attr("fill-opacity", function (d: any) {
-        if (!selected) return 1;
-        return connected.has(d.id) ? 1 : 0.2;
-      });
-    svg
-      .selectAll("line")
-      .attr("stroke-opacity", function (d: any) {
-        if (!selected) return 0.5;
-        const s = typeof d.source === "string" ? d.source : d.source.id;
-        const t = typeof d.target === "string" ? d.target : d.target.id;
-        return s === selected || t === selected ? 0.95 : 0.05;
-      });
-  }, [selected, links]);
+      .selectAll<SVGTextElement, Node>("text")
+      .attr("fill-opacity", (d) => (!selected ? 1 : connected.has(d.id) ? 1 : 0.18));
+    svg.selectAll<SVGLineElement, Link>("line").attr("stroke-opacity", (d: any) => {
+      if (!selected) return 0.45;
+      const s = typeof d.source === "string" ? d.source : d.source.id;
+      const t = typeof d.target === "string" ? d.target : d.target.id;
+      return s === selected || t === selected ? 0.95 : 0.04;
+    });
+  }, [selected, links, size]);
 
   const sel = selected ? concepts.find((c) => c.id === selected) : null;
 
@@ -197,16 +205,16 @@ export default function GraphPage() {
     <div className="space-y-6 animate-fade-in">
       <header>
         <div className="font-mono text-[11px] tracking-widish text-ink-subtle uppercase">Knowledge Graph</div>
-        <h1 className="text-2xl font-semibold tracking-tightish mt-1">One system, not three.</h1>
+        <h1 className="text-xl sm:text-2xl font-semibold tracking-tightish mt-1">One system, not three.</h1>
         <p className="text-ink-muted text-sm mt-1 max-w-2xl">
-          Force-directed map of every concept. Click a node to surface its connections across Career Program, Dalton, and Axia.
+          Force-directed map of every concept. Tap a node to surface its connections across Career Program, Dalton, and Axia. Drag to rearrange; scroll or pinch to zoom.
         </p>
       </header>
       <div className="grid lg:grid-cols-4 gap-4">
-        <div className="lg:col-span-3 card p-2 overflow-hidden">
-          <svg ref={ref} className="w-full h-[620px]" />
+        <div ref={wrapRef} className="lg:col-span-3 card p-2 overflow-hidden">
+          <svg ref={ref} className="w-full" style={{ height: size.h }} />
         </div>
-        <aside className="card p-5">
+        <aside className="card p-5 h-fit">
           <div className="h-section mb-2">Legend</div>
           <ul className="space-y-1.5 text-sm">
             <li className="flex items-center gap-2"><span className="w-3 h-3 rounded-full bg-source-career" /> Career Program</li>
@@ -223,7 +231,7 @@ export default function GraphPage() {
               </Link>
             </div>
           ) : (
-            <div className="text-ink-subtle text-sm">Click a node to inspect.</div>
+            <div className="text-ink-subtle text-sm">Tap a node to inspect. Tap again to clear.</div>
           )}
         </aside>
       </div>

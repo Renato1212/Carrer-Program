@@ -125,7 +125,7 @@ export default function DayTypePage() {
     <div className="space-y-6 animate-fade-in">
       <header>
         <div className="font-mono text-[11px] tracking-widish text-ink-subtle uppercase">Day Type Identifier</div>
-        <h1 className="text-2xl font-semibold tracking-tightish mt-1">Update as the day unfolds.</h1>
+        <h1 className="text-xl sm:text-2xl font-semibold tracking-tightish mt-1">Update as the day unfolds.</h1>
         <p className="text-ink-muted text-sm mt-1 max-w-2xl">
           Probabilistic read on developing day type. Misclassifying the day is the most expensive strategic mistake — re-check at every structural event.
         </p>

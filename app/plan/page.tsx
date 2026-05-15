@@ -39,7 +39,7 @@ export default function PlanPage() {
       <header className="flex items-end justify-between flex-wrap gap-3 no-print">
         <div>
           <div className="font-mono text-[11px] tracking-widish text-ink-subtle uppercase">Daily Planning</div>
-          <h1 className="text-2xl font-semibold tracking-tightish mt-1">Plan first, trade second.</h1>
+          <h1 className="text-xl sm:text-2xl font-semibold tracking-tightish mt-1">Plan first, trade second.</h1>
           <p className="text-ink-muted text-sm mt-1 max-w-2xl">
             Levels, inventory, scenarios, invalidations, hunt list. Saved locally. Printable.
           </p>
@@ -71,36 +71,35 @@ export default function PlanPage() {
               ))}
               {plan.levels.length === 0 && <div className="text-sm text-ink-subtle">No levels yet.</div>}
             </div>
-            <div className="grid grid-cols-12 gap-2">
-              <div className="col-span-4">
-                <select
-                  className="select"
-                  value={newLevel.kind}
-                  onChange={(e) => {
-                    const kind = e.target.value as Level["kind"];
-                    const def = LEVEL_KINDS.find((k) => k.value === kind);
-                    setNewLevel({ ...newLevel, kind, label: def?.label ?? "" });
-                  }}
-                >
-                  {LEVEL_KINDS.map((k) => (
-                    <option key={k.value} value={k.value}>{k.label}</option>
-                  ))}
-                </select>
-              </div>
+            <div className="grid grid-cols-2 sm:grid-cols-12 gap-2">
+              <select
+                className="select col-span-2 sm:col-span-4"
+                value={newLevel.kind}
+                onChange={(e) => {
+                  const kind = e.target.value as Level["kind"];
+                  const def = LEVEL_KINDS.find((k) => k.value === kind);
+                  setNewLevel({ ...newLevel, kind, label: def?.label ?? "" });
+                }}
+              >
+                {LEVEL_KINDS.map((k) => (
+                  <option key={k.value} value={k.value}>{k.label}</option>
+                ))}
+              </select>
               <input
-                className="input col-span-5"
+                className="input col-span-2 sm:col-span-5"
                 placeholder="label / context"
                 value={newLevel.label}
                 onChange={(e) => setNewLevel({ ...newLevel, label: e.target.value })}
               />
               <input
-                className="input col-span-2 font-mono tabular-nums"
+                className="input col-span-1 sm:col-span-2 font-mono tabular-nums"
                 placeholder="price"
                 value={newLevel.price}
                 onChange={(e) => setNewLevel({ ...newLevel, price: e.target.value })}
               />
               <button
                 className="btn btn-primary col-span-1 justify-center"
+                aria-label="Add level"
                 onClick={() => {
                   if (newLevel.price.trim()) {
                     addLevel(newLevel);

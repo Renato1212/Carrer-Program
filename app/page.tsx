@@ -23,7 +23,7 @@ export default function ConsolePage() {
       <header className="flex items-start justify-between flex-wrap gap-3">
         <div>
           <div className="font-mono text-[11px] tracking-widish text-ink-subtle uppercase">Console</div>
-          <h1 className="text-2xl font-semibold tracking-tightish mt-1">Where are we, what's the plan, what do we do?</h1>
+          <h1 className="text-xl sm:text-2xl font-semibold tracking-tightish mt-1">Where are we, what's the plan, what do we do?</h1>
           <p className="text-ink-muted text-sm mt-1 max-w-2xl">
             Three knowledge systems, one operating loop. Build context, plan scenarios, execute setups, debrief — every concept tagged by source and cross-linked.
           </p>
